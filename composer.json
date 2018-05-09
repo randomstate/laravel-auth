@@ -1,0 +1,26 @@
+{
+  "name": "randomstate/laravel-auth",
+  "description": "Strategy-based authentication for Laravel",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Connor Forsyth",
+      "email": "connor@randomstate.co.uk"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RandomState\\LaravelAuth\\": "src"
+    },
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^7.1",
+    "mockery/mockery": "^1.1",
+    "laravel/framework": "^5.6"
+  }
+}
