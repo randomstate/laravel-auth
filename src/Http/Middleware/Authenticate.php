@@ -31,13 +31,17 @@ class Authenticate
      * @throws AuthenticationException
      * @throws \RandomState\LaravelAuth\Exceptions\UnknownStrategyException
      */
-    public function handle($request, Closure $next, $strategy = null)
+    public function handle($request, Closure $next, $strategy = null, $sessions = true)
     {
         if ( ! ($user = $this->manager->login($strategy, $request))) {
             throw new AuthenticationException('Unauthenticated.');
         };
 
-        Auth::setUser($user);
+        if($sessions) {
+            Auth::login($user);
+        } else {
+            Auth::setUser($user);
+        }
 
         return $next($request);
     }
