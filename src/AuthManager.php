@@ -63,10 +63,7 @@ class AuthManager
     public function login($strategy, Request $request)
     {
         $strategy = $this->get($strategy);
-
         $user = $strategy->convert($strategy->attempt($request));
-
-        Auth::setUser($user);
 
         return $user;
     }

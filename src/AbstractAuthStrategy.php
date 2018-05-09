@@ -18,6 +18,8 @@ abstract class AbstractAuthStrategy implements AuthStrategy
     public function convertUsing(Closure $converter)
     {
         $this->converter = $converter;
+
+        return $this;
     }
 
 
