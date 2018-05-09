@@ -4,7 +4,6 @@
 namespace RandomState\LaravelAuth\Tests;
 
 
-class TestCase
+class TestCase extends \Tests\TestCase
 {
-
 }
