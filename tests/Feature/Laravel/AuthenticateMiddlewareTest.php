@@ -83,4 +83,34 @@ class AuthenticateMiddlewareTest extends TestCase
 
         $this->assertNull(Auth::user());
     }
+
+    /**
+     * @test
+     */
+    public function can_disable_sessions()
+    {
+        Auth::spy();
+
+        /** @var m\Mock $spy */
+        $spy = Auth::getFacadeRoot();
+
+        $this->manager->register('success', $success = new class extends AbstractAuthStrategy
+        {
+
+            public function attempt(Request $request)
+            {
+                return new User();
+            }
+
+        });
+
+        $success->convertUsing(function($user) {return $user;});
+
+        $middleware = new Authenticate($this->manager);
+        $middleware->handle(m::mock(Request::class), function () {
+        }, 'success', 'false');
+
+        $spy->shouldNotHaveReceived('login');
+        $spy->shouldHaveReceived('setUser')->once();
+    }
 }

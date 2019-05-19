@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use RandomState\LaravelAuth\AuthManager;
+use RandomState\LaravelAuth\Exceptions\UnknownStrategyException;
 
 class Authenticate
 {
@@ -27,9 +28,10 @@ class Authenticate
      * @param Closure $next
      * @param null $strategy
      *
+     * @param bool $sessions
      * @return mixed
      * @throws AuthenticationException
-     * @throws \RandomState\LaravelAuth\Exceptions\UnknownStrategyException
+     * @throws UnknownStrategyException
      */
     public function handle($request, Closure $next, $strategy = null, $sessions = true)
     {
@@ -37,7 +39,7 @@ class Authenticate
             throw new AuthenticationException('Unauthenticated.');
         };
 
-        if($sessions) {
+        if($sessions === true) {
             Auth::login($user);
         } else {
             Auth::setUser($user);
